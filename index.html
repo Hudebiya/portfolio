@@ -3,12 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Portfolio</title>
 </head>
 <body>
     
+<!-- ===== NAV ===== -->
+ <div id="progressBar"></div>
+  <nav class="nav">
+  <div class="logo">&lt;HUDEBIYA/&gt;</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#work">work</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+    <span class="toggle-icon">🌙</span>
+  </button>
+</nav>
 
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      <span class="terminal-title">whoami.sh</span>
+    </div>
+    <div class="terminal-body">
+      <p><span class="prompt">$</span> <span id="typedText"></span><span class="cursor">|</span></p>
+    </div>
+  </div>
+  <h1 class="hero-title">Hi, I'm <span class="accent">Hudebiya
+  </span></h1>
+  <p class="hero-sub">Web Developer — building fast, thoughtful interfaces.</p>
+  <a href="#work" class="btn">See my work ↓</a>
+</header>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="section reveal">
+  <span class="eyebrow">// about</span>
+  <h2>A bit about me</h2>
+  <p class="body-text">
+    I'm a web and app developer who loves turning ideas into clean, functional products.
+    I care about performance, accessibility, and details that most people never notice — but feel.
+  </p>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="section reveal">
+  <span class="eyebrow">// skills</span>
+  <h2>What I work with</h2>
+  <div class="skills-grid">
+    <span class="skill-tag">HTML5</span>
+    <span class="skill-tag">CSS3</span>
+    <span class="skill-tag">JavaScript</span>
+    <span class="skill-tag">React</span>
+    <span class="skill-tag">Node.js</span>
+    <span class="skill-tag">Git</span>
+    <span class="skill-tag">GSAP</span>
+    <span class="skill-tag">Figma</span>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="work" class="section reveal">
+  <span class="eyebrow">// projects</span>
+  <h2>Selected work</h2>
+  <div class="projects-grid">
+    <article class="project-card">
+      <div class="project-thumb">01</div>
+      <h3>Project One</h3>
+      <p>Short description of what it does and the stack used.</p>
+    </article>
+    <article class="project-card">
+      <div class="project-thumb">02</div>
+      <h3>Project Two</h3>
+      <p>Short description of what it does and the stack used.</p>
+    </article>
+    <article class="project-card">
+      <div class="project-thumb">03</div>
+      <h3>Project Three</h3>
+      <p>Short description of what it does and the stack used.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="section reveal">
+  <span class="eyebrow">// contact</span>
+  <h2>Let's build something</h2>
+  <p class="body-text">Have a project in mind? My inbox is open.</p>
+  <a href="mailto:you@email.com" class="btn">Say hello →</a>
+</section>
+
+<footer class="footer">
+  <p>&copy; 2026 Your Name. Built with HTML, CSS & GSAP.</p>
+</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="animation.js"></script>
     <script src="app.js"></script>
 </body>
