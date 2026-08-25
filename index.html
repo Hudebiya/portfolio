@@ -10,102 +10,101 @@
 </head>
 <body>
     
-<!-- ===== NAV ===== -->
- <div id="progressBar"></div>
-  <nav class="nav">
-  <div class="logo">&lt;HUDEBIYA/&gt;</div>
-  <ul class="nav-links">
-    <li><a href="#about">about</a></li>
-    <li><a href="#skills">skills</a></li>
-    <li><a href="#work">work</a></li>
-    <li><a href="#contact">contact</a></li>
-  </ul>
-  <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-    <span class="toggle-icon">🌙</span>
-  </button>
-</nav>
+<div class="scanlines"></div>
 
-<!-- ===== HERO ===== -->
-<header class="hero">
-  <div class="terminal">
-    <div class="terminal-bar">
-      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-      <span class="terminal-title">whoami.sh</span>
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+  <span class="topbar-title">guest@hudebiya: ~</span>
+  <button id="themeToggle" class="theme-toggle">theme</button>
+</div>
+
+<div id="progressBar"></div>
+
+<main class="terminal-window">
+
+  <!-- ===== BOOT SEQUENCE ===== -->
+  <section id="boot" class="boot-log"></section>
+
+  <!-- ===== NAV (commands) ===== -->
+  <nav class="cmd-nav" id="cmdNav" style="opacity:0;">
+    <a data-target="about">cd ~/about</a>
+    <a data-target="skills">cd ~/skills</a>
+    <a data-target="projects">cd ~/projects</a>
+    <a data-target="contact">cd ~/contact</a>
+  </nav>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="cmd-block reveal">
+    <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> cat about.txt</p>
+    <div class="output">
+      <p>Name  : HUDEBIYA</p>
+      <p>Role  : Web Developer</p>
+      <p>Bio   : I build fast, clean, thoughtful interfaces for the web.
+      I care about performance, accessibility, and the small details
+      most people never notice — but always feel.</p>
     </div>
-    <div class="terminal-body">
-      <p><span class="prompt">$</span> <span id="typedText"></span><span class="cursor">|</span></p>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="cmd-block reveal">
+    <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> ls skills/</p>
+    <div class="output skills-grid">
+      <span>html5</span><span>css3</span><span>javascript</span><span>react</span>
+      <span>node.js</span><span>git</span><span>gsap</span><span>figma</span>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS (carousel) ===== -->
+<section id="projects" class="cmd-block reveal">
+  <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> ./run-carousel projects/</p>
+  <div class="carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide">
+        <span class="proj-name">01_project-one/</span>
+        <p>Short description of what it does and the stack used.</p>
+      </div>
+      <div class="carousel-slide">
+        <span class="proj-name">02_project-two/</span>
+        <p>Short description of what it does and the stack used.</p>
+      </div>
+      <div class="carousel-slide">
+        <span class="proj-name">03_project-three/</span>
+        <p>Short description of what it does and the stack used.</p>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button id="prevSlide">&lt; prev</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button id="nextSlide">next &gt;</button>
     </div>
   </div>
-  <h1 class="hero-title">Hi, I'm <span class="accent">Hudebiya
-  </span></h1>
-  <p class="hero-sub">Web Developer — building fast, thoughtful interfaces.</p>
-  <a href="#work" class="btn">See my work ↓</a>
-</header>
-
-<!-- ===== ABOUT ===== -->
-<section id="about" class="section reveal">
-  <span class="eyebrow">// about</span>
-  <h2>A bit about me</h2>
-  <p class="body-text">
-    I'm a web and app developer who loves turning ideas into clean, functional products.
-    I care about performance, accessibility, and details that most people never notice — but feel.
-  </p>
 </section>
 
-<!-- ===== SKILLS ===== -->
-<section id="skills" class="section reveal">
-  <span class="eyebrow">// skills</span>
-  <h2>What I work with</h2>
-  <div class="skills-grid">
-    <span class="skill-tag">HTML5</span>
-    <span class="skill-tag">CSS3</span>
-    <span class="skill-tag">JavaScript</span>
-    <span class="skill-tag">React</span>
-    <span class="skill-tag">Node.js</span>
-    <span class="skill-tag">Git</span>
-    <span class="skill-tag">GSAP</span>
-    <span class="skill-tag">Figma</span>
-  </div>
-</section>
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="cmd-block reveal">
+    <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> cat contact.txt</p>
+    <div class="output">
+      <p>Email : <a href="mailto:you@email.com">you@email.com</a></p>
+      <p>Status: open to work</p>
+    </div>
+  </section>
 
-<!-- ===== PROJECTS ===== -->
-<section id="work" class="section reveal">
-  <span class="eyebrow">// projects</span>
-  <h2>Selected work</h2>
-  <div class="projects-grid">
-    <article class="project-card">
-      <div class="project-thumb">01</div>
-      <h3>Project One</h3>
-      <p>Short description of what it does and the stack used.</p>
-    </article>
-    <article class="project-card">
-      <div class="project-thumb">02</div>
-      <h3>Project Two</h3>
-      <p>Short description of what it does and the stack used.</p>
-    </article>
-    <article class="project-card">
-      <div class="project-thumb">03</div>
-      <h3>Project Three</h3>
-      <p>Short description of what it does and the stack used.</p>
-    </article>
-  </div>
-</section>
+  <!-- ===== INTERACTIVE TERMINAL ===== -->
+  <section class="cmd-block reveal">
+    <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> help</p>
+    <div class="output" id="terminalOutput"></div>
+    <p class="cmd-line input-line">
+      <span class="prompt">guest@hudebiya:~$</span>
+      <input type="text" id="terminalInput" autocomplete="off" spellcheck="false" placeholder="type 'help' and press enter">
+    </p>
+  </section>
 
-<!-- ===== CONTACT ===== -->
-<section id="contact" class="section reveal">
-  <span class="eyebrow">// contact</span>
-  <h2>Let's build something</h2>
-  <p class="body-text">Have a project in mind? My inbox is open.</p>
-  <a href="mailto:you@email.com" class="btn">Say hello →</a>
-</section>
+</main>
 
-<footer class="footer">
-  <p>&copy; 2026 Your Name. Built with HTML, CSS & GSAP.</p>
-</footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="animation.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
