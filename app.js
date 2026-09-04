@@ -1,141 +1,368 @@
-// ===== THEME TOGGLE =====
-const themeToggle = document.getElementById('themeToggle');
-const saved = localStorage.getItem('theme') || 'dark';
-if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
 
-themeToggle.addEventListener('click', () => {
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  if (isLight) {
-    document.documentElement.removeAttribute('data-theme');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-    localStorage.setItem('theme', 'light');
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  initScrollAnimations();
+  initTypingEffect();
+  initProjectFilter();
+  initNavbar();
+  initContactForm();
+  initQuickCopy();
+  initCopyrightYear();
 });
 
-// ===== SCROLL PROGRESS =====
-window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  document.getElementById('progressBar').style.width = (scrollTop / docHeight) * 100 + '%';
-});
+/* --------------------------------------------------------------------------
+   1. THEME TOGGLE (DARK / LIGHT MODE)
+   -------------------------------------------------------------------------- */
+function initTheme() {
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
 
+  // Retrieve saved theme or prefer system theme
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
 
-// ===== BOOT SEQUENCE (real typewriter) =====
-const bootLines = [
-  "Booting portfolio_os v1.0...",
-  "Loading modules: [html] [css] [javascript] [gsap] ... OK",
-  "Connecting to guest@hudebiya ...",
-  "Welcome. Type 'help' at the bottom terminal to explore."
-];
+  root.setAttribute('data-theme', initialTheme);
 
-async function typeLine(text, el) {
-  for (let i = 0; i < text.length; i++) {
-    el.textContent += text[i];
-    await new Promise(r => setTimeout(r, 22));
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = root.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('portfolio-theme', newTheme);
+
+      showToast(newTheme === 'dark' ? '🌙 Dark Mode Activated' : '☀️ Light Mode Activated');
+    });
   }
 }
 
-async function runBoot() {
-  for (const line of bootLines) {
-    const p = document.createElement('p');
-    p.style.opacity = 1;
-    bootEl.appendChild(p);
-    await typeLine(line, p);
-    await new Promise(r => setTimeout(r, 350));
-  }
-  gsap.to(navEl, { opacity: 1, duration: 0.6 });
-}
-runBoot();
+/* --------------------------------------------------------------------------
+   2. SCROLL REVEAL, COUNTERS & PROGRESS BARS
+   -------------------------------------------------------------------------- */
+function initScrollAnimations() {
+  const reveals = document.querySelectorAll('.reveal');
+  const counters = document.querySelectorAll('.counter');
+  const skillBars = document.querySelectorAll('.skill-progress');
+  let countersAnimated = false;
 
-// ===== SCROLL LINKS =====
-document.querySelectorAll('.cmd-nav a').forEach(link => {
-  link.addEventListener('click', (e) => {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+
+        // Check if element contains metric counters
+        if (!countersAnimated && entry.target.querySelector('.counter')) {
+          countersAnimated = true;
+          animateCounters(counters);
+        }
+
+        // Check if element contains skill progress bars
+        if (entry.target.classList.contains('skill-category-card')) {
+          const progressBars = entry.target.querySelectorAll('.skill-progress');
+          progressBars.forEach(bar => bar.classList.add('animated'));
+        }
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  reveals.forEach(el => revealObserver.observe(el));
+}
+
+function animateCounters(counters) {
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target') || 0;
+    const duration = 1500; // ms
+    const startTime = performance.now();
+
+    function updateCount(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Easing out cubic
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const currentVal = Math.floor(easeProgress * target);
+
+      counter.textContent = currentVal;
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        counter.textContent = target;
+      }
+    }
+
+    requestAnimationFrame(updateCount);
+  });
+}
+
+/* --------------------------------------------------------------------------
+   3. DYNAMIC TYPING / CYCLING TEXT
+   -------------------------------------------------------------------------- */
+function initTypingEffect() {
+  const target = document.querySelector('.type-target');
+  if (!target) return;
+
+  const phrases = [
+    'Web & Mobile Apps',
+    'Modern Web Platforms',
+    'iOS & Android Apps',
+    'Responsive Design'
+  ];
+
+  let phraseIndex = 0;
+  let charIndex = phrases[0].length;
+  let isDeleting = false;
+  let typeSpeed = 100;
+
+  function typeLoop() {
+    const currentPhrase = phrases[phraseIndex];
+
+    if (isDeleting) {
+      target.textContent = currentPhrase.substring(0, charIndex - 1);
+      charIndex--;
+      typeSpeed = 40;
+    } else {
+      target.textContent = currentPhrase.substring(0, charIndex + 1);
+      charIndex++;
+      typeSpeed = 90;
+    }
+
+    if (!isDeleting && charIndex === currentPhrase.length) {
+      // Pause at full word
+      typeSpeed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      typeSpeed = 400;
+    }
+
+    setTimeout(typeLoop, typeSpeed);
+  }
+
+  // Start loop after brief initial pause
+  setTimeout(typeLoop, 2000);
+}
+
+/* --------------------------------------------------------------------------
+   4. PROJECT CATEGORY FILTERING
+   -------------------------------------------------------------------------- */
+function initProjectFilter() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active button state
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+
+      projectCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+
+        if (filter === 'all' || category === filter) {
+          card.classList.remove('hide');
+          // Re-trigger reveal animation smoothly
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(15px)';
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 50);
+        } else {
+          card.classList.add('hide');
+        }
+      });
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   5. NAVBAR, SCROLL SPY & MOBILE MENU
+   -------------------------------------------------------------------------- */
+function initNavbar() {
+  const navbar = document.getElementById('navbar');
+  const mobileToggle = document.getElementById('mobile-menu-btn');
+  const navMenu = document.getElementById('nav-menu');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
+
+  // Navbar shadow on scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+
+    // Scroll Spy for Nav Links
+    let currentSectionId = '';
+    const scrollPosition = window.scrollY + 120;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSectionId = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentSectionId}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Mobile Menu Toggle
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('active');
+      navMenu.classList.toggle('open');
+    });
+
+    // Close menu when clicking nav links
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileToggle.classList.remove('active');
+        navMenu.classList.remove('open');
+      });
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. CONTACT FORM HANDLING & VALIDATION
+   -------------------------------------------------------------------------- */
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    document.getElementById(link.dataset.target).scrollIntoView({ behavior: 'smooth' });
+
+    let isValid = true;
+
+    // Validate Name
+    if (!nameInput.value.trim()) {
+      setError(nameInput, true);
+      isValid = false;
+    } else {
+      setError(nameInput, false);
+    }
+
+    // Validate Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailInput.value.trim())) {
+      setError(emailInput, true);
+      isValid = false;
+    } else {
+      setError(emailInput, false);
+    }
+
+    // Validate Message
+    if (!messageInput.value.trim()) {
+      setError(messageInput, true);
+      isValid = false;
+    } else {
+      setError(messageInput, false);
+    }
+
+    if (isValid) {
+      const submitBtn = form.querySelector('.submit-btn');
+      const originalText = submitBtn.innerHTML;
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg style="animation: spin 1s linear infinite; width:18px; height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+          <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
+        </svg>
+        <span>Sending...</span>
+      `;
+
+      // Simulate sending latency
+      setTimeout(() => {
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        showToast('🚀 Message Sent! Thank you for reaching out.');
+      }, 1000);
+    }
   });
-});
 
-// ===== GSAP SCROLL REVEALS =====
-gsap.registerPlugin(ScrollTrigger);
-document.querySelectorAll('.reveal').forEach(el => {
-  gsap.to(el, {
-    opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
-    scrollTrigger: { trigger: el, start: "top 88%" }
+  // Clear errors as user types
+  [nameInput, emailInput, messageInput].forEach(input => {
+    input.addEventListener('input', () => {
+      setError(input, false);
+    });
   });
-});
 
-// ===== INTERACTIVE TERMINAL =====
-const input = document.getElementById('terminalInput');
-const out = document.getElementById('terminalOutput');
-
-const commands = {
-  help: "Available: about, skills, projects, contact, clear",
-  about: "HUDEBIYA — Web Developer. Scroll up to ~/about for full bio.",
-  skills: "HTML5, CSS3, JavaScript, React, Node.js, Git, GSAP, Figma",
-  projects: "See ~/projects section above for full list.",
-  contact: "Email: you@email.com — open to work.",
-  whoami: "guest (that's you)",
-  clear: null
-};
-
-input.addEventListener('keydown', (e) => {
-  if (e.key !== 'Enter') return;
-  const cmd = input.value.trim().toLowerCase();
-  input.value = '';
-
-  const echo = document.createElement('p');
-  echo.textContent = `$ ${cmd}`;
-  echo.style.color = "var(--text)";
-  out.appendChild(echo);
-
-  if (cmd === 'clear') {
-    out.innerHTML = '';
-    return;
+  function setError(inputElement, hasError) {
+    const parent = inputElement.closest('.form-group');
+    if (!parent) return;
+    if (hasError) {
+      parent.classList.add('has-error');
+    } else {
+      parent.classList.remove('has-error');
+    }
   }
-
-  const response = document.createElement('p');
-  if (commands[cmd]) {
-    response.textContent = commands[cmd];
-  } else {
-    response.textContent = `command not found: ${cmd} (try 'help')`;
-    response.classList.add('err');
-  }
-  out.appendChild(response);
-  out.scrollTop = out.scrollHeight;
-});
-
-document.querySelectorAll('.cmd-block').forEach(el => {
-  gsap.to(el, {
-    opacity: 1, y: 0, duration: 1.1, ease: "power3.out",
-    scrollTrigger: { trigger: el, start: "top 90%" }
-  });
-});
-
-// ===== PROJECT CAROUSEL =====
-const track = document.getElementById('carouselTrack');
-const slides = document.querySelectorAll('.carousel-slide');
-const dotsWrap = document.getElementById('carouselDots');
-let current = 0;
-
-slides.forEach((_, i) => {
-  const dot = document.createElement('span');
-  if (i === 0) dot.classList.add('active');
-  dot.addEventListener('click', () => goToSlide(i));
-  dotsWrap.appendChild(dot);
-});
-const dots = document.querySelectorAll('.carousel-dots span');
-
-function goToSlide(index) {
-  current = (index + slides.length) % slides.length;
-  gsap.to(track, { xPercent: -100 * current, duration: 0.5, ease: "power2.inOut" });
-  dots.forEach(d => d.classList.remove('active'));
-  dots[current].classList.add('active');
 }
 
-document.getElementById('prevSlide').addEventListener('click', () => goToSlide(current - 1));
-document.getElementById('nextSlide').addEventListener('click', () => goToSlide(current + 1));
+/* --------------------------------------------------------------------------
+   7. QUICK CLIPBOARD COPY
+   -------------------------------------------------------------------------- */
+function initQuickCopy() {
+  const copyBtn = document.getElementById('copy-email-quick');
+  if (!copyBtn) return;
 
-// auto-advance every 5s
-setInterval(() => goToSlide(current + 1), 5000);
+  copyBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const emailText = 'developer@example.com';
+    navigator.clipboard.writeText(emailText).then(() => {
+      showToast('📋 Email copied to clipboard: ' + emailText);
+    }).catch(() => {
+      showToast('✉️ Contact email: ' + emailText);
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   8. TOAST NOTIFICATION UTILITY
+   -------------------------------------------------------------------------- */
+let toastTimeout;
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3500);
+}
+
+/* --------------------------------------------------------------------------
+   9. COPYRIGHT YEAR
+   -------------------------------------------------------------------------- */
+function initCopyrightYear() {
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+}

@@ -1,110 +1,738 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Portfolio | Web & Mobile App Specialist</title>
+  <meta name="description" content="Modern Portfolio of a Full-Stack Web and Mobile App Developer crafting high-performance digital experiences." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
-<div class="scanlines"></div>
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
-<!-- ===== TOP BAR ===== -->
-<div class="topbar">
-  <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-  <span class="topbar-title">guest@hudebiya: ~</span>
-  <button id="themeToggle" class="theme-toggle">theme</button>
-</div>
+  <!-- Header / Navigation Bar -->
+  <header class="navbar-wrapper" id="navbar">
+    <nav class="navbar container">
+      <a href="#hero" class="brand-logo" aria-label="Home">
+        <span class="logo-code">&lt;</span>
+        <span class="logo-name">Hudebiya</span>
+        <span class="logo-slash">/</span>
+        <span class="logo-code">&gt;</span>
+      </a>
 
-<div id="progressBar"></div>
+      <!-- Desktop Nav Menu -->
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
 
-<main class="terminal-window">
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Theme Switcher -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Light and Dark Mode" title="Toggle Theme">
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
 
-  <!-- ===== BOOT SEQUENCE ===== -->
-  <section id="boot" class="boot-log"></section>
+        <a href="#contact" class="btn btn-sm btn-primary nav-cta">Let's Talk</a>
 
-  <!-- ===== NAV (commands) ===== -->
-  <nav class="cmd-nav" id="cmdNav" style="opacity:0;">
-    <a data-target="about">cd ~/about</a>
-    <a data-target="skills">cd ~/skills</a>
-    <a data-target="projects">cd ~/projects</a>
-    <a data-target="contact">cd ~/contact</a>
-  </nav>
-
-  <!-- ===== ABOUT ===== -->
-  <section id="about" class="cmd-block reveal">
-    <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> cat about.txt</p>
-    <div class="output">
-      <p>Name  : HUDEBIYA</p>
-      <p>Role  : Web Developer</p>
-      <p>Bio   : I build fast, clean, thoughtful interfaces for the web.
-      I care about performance, accessibility, and the small details
-      most people never notice — but always feel.</p>
-    </div>
-  </section>
-
-  <!-- ===== SKILLS ===== -->
-  <section id="skills" class="cmd-block reveal">
-    <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> ls skills/</p>
-    <div class="output skills-grid">
-      <span>html5</span><span>css3</span><span>javascript</span><span>react</span>
-      <span>node.js</span><span>git</span><span>gsap</span><span>figma</span>
-    </div>
-  </section>
-
-  <!-- ===== PROJECTS (carousel) ===== -->
-<section id="projects" class="cmd-block reveal">
-  <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> ./run-carousel projects/</p>
-  <div class="carousel">
-    <div class="carousel-track" id="carouselTrack">
-      <div class="carousel-slide">
-        <span class="proj-name">01_project-one/</span>
-        <p>Short description of what it does and the stack used.</p>
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="mobile-toggle" aria-label="Open Navigation Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
       </div>
-      <div class="carousel-slide">
-        <span class="proj-name">02_project-two/</span>
-        <p>Short description of what it does and the stack used.</p>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section container" id="hero">
+      <div class="hero-content">
+        <!-- Status Pill -->
+        <div class="status-badge reveal">
+          <span class="pulse-dot"></span>
+          <span>Available for New Projects & Collaborations</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-title reveal">
+          Crafting High-Impact <br />
+          <span class="gradient-text type-target">Web & Mobile Apps</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="hero-description reveal">
+          Hi, I am  <strong> Hudebiya </strong> a passionateFull-Stack Web & Mobile App Developer. 
+          I turn complex ideas into seamless, intuitive web applications and high-performance cross-platform mobile apps with cutting-edge UI/UX.
+        </p>
+
+        <!-- CTA Buttons & Quick Actions -->
+        <div class="hero-cta-group reveal">
+          <a href="#projects" class="btn btn-primary">
+            <span>Explore My Work</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#contact" class="btn btn-secondary">
+            <span>Get in Touch</span>
+          </a>
+          <a href="#contact" id="copy-email-quick" class="btn btn-ghost" title="Copy Email">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>hudebiyabano@gmail.com</span>
+          </a>
+        </div>
+
+        <!-- Primary Stack Badges -->
+        <div class="hero-tech-strip reveal">
+          <span class="strip-label">Primary Stack:</span>
+          <div class="strip-badges">
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">Next.js</span>
+            <span class="tech-pill">React Native</span>
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">Node.js</span>
+            <span class="tech-pill">Tailwind CSS</span>
+          </div>
+        </div>
       </div>
-      <div class="carousel-slide">
-        <span class="proj-name">03_project-three/</span>
-        <p>Short description of what it does and the stack used.</p>
+
+      <!-- Hero Visual Showcase / Interactive Code & App Preview -->
+      <div class="hero-visual reveal">
+        <div class="device-card-mockup">
+          <div class="mockup-header">
+            <div class="mockup-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="mockup-title">DeveloperDashboard.tsx</div>
+            <div class="mockup-tag">Live Preview</div>
+          </div>
+          <div class="mockup-body">
+            <pre class="code-block"><code><span class="code-kw">const</span> <span class="code-var">developer</span> = {
+  <span class="code-prop">name</span>: <span class="code-str">"Creative Engineer"</span>,
+  <span class="code-prop">specialty</span>: [<span class="code-str">"Modern Web"</span>, <span class="code-str">"iOS & Android Apps"</span>],
+  <span class="code-prop">coreSkills</span>: {
+    <span class="code-prop">frontend</span>: [<span class="code-str">"React"</span>, <span class="code-str">"Next.js"</span>, <span class="code-str">"Tailwind"</span>],
+    <span class="code-prop">mobile</span>: [<span class="code-str">"React Native"</span>, <span class="code-str">"Flutter"</span>, <span class="code-str">"Expo"</span>],
+    <span class="code-prop">backend</span>: [<span class="code-str">"Node.js"</span>, <span class="code-str">"Express"</span>, <span class="code-str">"PostgreSQL"</span>]
+  },
+  <span class="code-prop">isAvailableForHire</span>: <span class="code-bool">true</span>,
+  <span class="code-fn">deliverMasterpiece</span>: () =&gt; {
+    <span class="code-kw">return</span> <span class="code-str">"High performance & pixel-perfect design 🚀"</span>;
+  }
+};</code></pre>
+          </div>
+          <div class="mockup-footer">
+            <div class="stat-bubble">
+              <span class="stat-num">99.9%</span>
+              <span class="stat-text">Performance Score</span>
+            </div>
+            <div class="stat-bubble">
+              <span class="stat-num">100%</span>
+              <span class="stat-text">Responsive & Mobile First</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT & BENTO GRID SECTION -->
+    <section class="bento-section container" id="about">
+      <div class="section-header reveal">
+        <span class="section-tag">Overview</span>
+        <h2 class="section-title">Built for Performance & Scale</h2>
+        <p class="section-subtitle">A balanced fusion of front-end finesse, robust mobile architectures, and intuitive modern aesthetics.</p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Bento 1: Journey & Bio -->
+        <div class="bento-card bento-wide reveal">
+          <div class="card-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3>Web & Mobile Cross-Disciplinary Expertise</h3>
+          <p>
+            With solid expertise in both <strong>Modern Web Standards</strong> and <strong>Native/Cross-Platform Mobile Apps</strong>, 
+            I bridge the gap between complex engineering and human-centered design. I specialize in building reactive interfaces that load in milliseconds and apps that feel completely native in your hand.
+          </p>
+          <div class="bento-pills-row">
+            <span class="mini-pill">Single Page Apps (SPA)</span>
+            <span class="mini-pill">iOS & Android</span>
+            <span class="mini-pill">Serverless & APIs</span>
+            <span class="mini-pill">Design Systems</span>
+          </div>
+        </div>
+
+        <!-- Bento 2: Quick Metrics -->
+        <div class="bento-card bento-stat reveal">
+          <div class="metric-block">
+            <span class="counter" data-target="25">0</span><span class="metric-plus">+</span>
+            <span class="metric-label">Completed Projects</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-block">
+            <span class="counter" data-target="15">0</span><span class="metric-plus">+</span>
+            <span class="metric-label">Satisfied Global Clients</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-block">
+            <span class="counter" data-target="3">0</span><span class="metric-plus">+</span>
+            <span class="metric-label">Years of Dedicated Experience</span>
+          </div>
+        </div>
+
+        <!-- Bento 3: Clean Code & Architecture -->
+        <div class="bento-card reveal">
+          <div class="card-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <h3>Clean Architecture</h3>
+          <p>Maintainable, well-documented codebases with modular state management and automated CI/CD deployment pipelines.</p>
+        </div>
+
+        <!-- Bento 4: Mobile-First Mindset -->
+        <div class="bento-card reveal">
+          <div class="card-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3>App Store Ready</h3>
+          <p>From smooth 60fps animations to offline-first caching, push notifications, and App Store & Play Store compliance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="skills-section container" id="skills">
+      <div class="section-header reveal">
+        <span class="section-tag">Tech Stack</span>
+        <h2 class="section-title">Tools & Technologies I Master</h2>
+        <p class="section-subtitle">Continuously evolving with the newest industry tools to write clean, scalable software.</p>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Category: Web Development -->
+        <div class="skill-category-card reveal">
+          <div class="skill-cat-header">
+            <div class="cat-badge web-badge">Web Tech</div>
+            <h3>Web Development</h3>
+          </div>
+          <p class="cat-desc">Building ultra-fast, responsive web interfaces and web applications.</p>
+          <div class="skill-list">
+            <div class="skill-item">
+              <div class="skill-info"><span>React / Next.js</span><span>95%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 95%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>TypeScript / JavaScript (ES6+)</span><span>90%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 90%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>HTML5 / Modern CSS3 / Tailwind</span><span>98%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 98%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>REST & GraphQL APIs</span><span>88%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 88%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Mobile App Development -->
+        <div class="skill-category-card reveal">
+          <div class="skill-cat-header">
+            <div class="cat-badge app-badge">Mobile Tech</div>
+            <h3>Mobile App Development</h3>
+          </div>
+          <p class="cat-desc">Cross-platform and native-feeling mobile applications for iOS & Android.</p>
+          <div class="skill-list">
+            <div class="skill-item">
+              <div class="skill-info"><span>React Native / Expo</span><span>92%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 92%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>Flutter / Dart</span><span>85%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 85%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>Mobile UI/UX & Gestures</span><span>90%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 90%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>State Management (Redux/Zustand)</span><span>92%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 92%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Backend & Cloud Services -->
+        <div class="skill-category-card reveal">
+          <div class="skill-cat-header">
+            <div class="cat-badge backend-badge">Backend & Cloud</div>
+            <h3>Backend & Ecosystem</h3>
+          </div>
+          <p class="cat-desc">Robust backend foundations, secure databases, and deployment pipelines.</p>
+          <div class="skill-list">
+            <div class="skill-item">
+              <div class="skill-info"><span>Node.js / Express</span><span>88%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 88%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>Firebase / Supabase</span><span>92%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 92%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>PostgreSQL / MongoDB</span><span>85%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 85%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info"><span>Git / GitHub / CI-CD</span><span>94%</span></div>
+              <div class="skill-bar"><div class="skill-progress" style="--val: 94%;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services-section container" id="services">
+      <div class="section-header reveal">
+        <span class="section-tag">Services</span>
+        <h2 class="section-title">What I Can Do For You</h2>
+        <p class="section-subtitle">End-to-end development services tailored to launch and scale your digital products.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-number">01</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3>Full-Stack Web Development</h3>
+          <p>Custom, scalable websites, SaaS applications, and interactive web portals built with React, Next.js, and modern CSS.</p>
+          <ul class="service-checklist">
+            <li>Responsive across all screen sizes</li>
+            <li>SEO & Core Web Vitals optimization</li>
+            <li>Fast loading speeds & modern animations</li>
+          </ul>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-number">02</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3>Cross-Platform Mobile Apps</h3>
+          <p>Sleek iOS and Android applications built with React Native and Flutter, ensuring a unified codebase and native feel.</p>
+          <ul class="service-checklist">
+            <li>Smooth 60 FPS gestures & transitions</li>
+            <li>Offline caching and push notifications</li>
+            <li>App Store & Google Play publishing support</li>
+          </ul>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-number">03</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+              <line x1="9" y1="9" x2="9.01" y2="9"></line>
+              <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+          </div>
+          <h3>UI/UX Prototyping to Code</h3>
+          <p>Transforming Figma designs into pixel-perfect, interactive code with micro-interactions and accessible components.</p>
+          <ul class="service-checklist">
+            <li>Pixel-perfect Figma-to-code translation</li>
+            <li>Micro-interactions & fluid animations</li>
+            <li>Design system & component libraries</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section class="projects-section container" id="projects">
+      <div class="section-header reveal">
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">A collection of web apps and mobile applications built with modern tools.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-wrapper reveal">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="web">Web Apps</button>
+        <button class="filter-btn" data-filter="app">Mobile Apps</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid" id="projects-container">
+        <!-- Project 1: Web App -->
+        <article class="project-card reveal" data-category="web">
+          <div class="project-preview preview-web">
+            <div class="project-tag-overlay">Web Application</div>
+            <div class="mockup-screen">
+              <div class="mock-nav">
+                <span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span>
+                <span class="m-bar">saas-cloud-platform.io</span>
+              </div>
+              <div class="mock-canvas">
+                <div class="mock-chart-line"></div>
+                <div class="mock-grid-row">
+                  <div class="mock-card-sm"></div>
+                  <div class="mock-card-sm"></div>
+                  <div class="mock-card-sm"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-details">
+            <div class="project-tech-tags">
+              <span>Next.js 14</span>
+              <span>TypeScript</span>
+              <span>Tailwind CSS</span>
+              <span>PostgreSQL</span>
+            </div>
+            <h3 class="project-title">CloudPulse SaaS Dashboard</h3>
+            <p class="project-desc">
+              An enterprise analytics and customer tracking dashboard with real-time WebSocket metrics, role-based access control, and dark/light modes.
+            </p>
+            <div class="project-links">
+              <a href="#" class="project-link-btn" title="Live Preview">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span>Live Demo</span>
+              </a>
+              <a href="#" class="project-link-btn ghost" title="GitHub Code">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <span>Source Code</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2: Mobile App -->
+        <article class="project-card reveal" data-category="app">
+          <div class="project-preview preview-app">
+            <div class="project-tag-overlay">Mobile Application</div>
+            <div class="phone-mockup">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="app-header-pill">FitSync Daily</div>
+                <div class="app-ring-circle"></div>
+                <div class="app-row-bar"></div>
+                <div class="app-row-bar short"></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-details">
+            <div class="project-tech-tags">
+              <span>React Native</span>
+              <span>Expo</span>
+              <span>Redux Toolkit</span>
+              <span>HealthKit API</span>
+            </div>
+            <h3 class="project-title">FitSync: AI Fitness Companion</h3>
+            <p class="project-desc">
+              Cross-platform mobile app featuring automated workout logging, step tracking, AI workout suggestions, and smooth 60fps gesture animations.
+            </p>
+            <div class="project-links">
+              <a href="#" class="project-link-btn" title="View Case Study">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <span>App Demo</span>
+              </a>
+              <a href="#" class="project-link-btn ghost" title="GitHub Code">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <span>Source Code</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3: Web App -->
+        <article class="project-card reveal" data-category="web">
+          <div class="project-preview preview-web">
+            <div class="project-tag-overlay">Web Application</div>
+            <div class="mockup-screen">
+              <div class="mock-nav">
+                <span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span>
+                <span class="m-bar">shopvibe-ecom.store</span>
+              </div>
+              <div class="mock-canvas ecom-canvas">
+                <div class="mock-banner"></div>
+                <div class="mock-product-row">
+                  <div class="mock-prod-card"></div>
+                  <div class="mock-prod-card"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-details">
+            <div class="project-tech-tags">
+              <span>React</span>
+              <span>Node.js</span>
+              <span>Stripe Payments</span>
+              <span>MongoDB</span>
+            </div>
+            <h3 class="project-title">ShopVibe: Modern E-Commerce</h3>
+            <p class="project-desc">
+              High-converting e-commerce web application with instant search filtering, Stripe checkout integration, cart persistence, and an intuitive admin panel.
+            </p>
+            <div class="project-links">
+              <a href="#" class="project-link-btn" title="Live Preview">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span>Live Demo</span>
+              </a>
+              <a href="#" class="project-link-btn ghost" title="GitHub Code">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <span>Source Code</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4: Mobile App -->
+        <article class="project-card reveal" data-category="app">
+          <div class="project-preview preview-app">
+            <div class="project-tag-overlay">Mobile Application</div>
+            <div class="phone-mockup">
+              <div class="phone-notch"></div>
+              <div class="phone-screen crypto-screen">
+                <div class="app-header-pill">Nova Crypto Wallet</div>
+                <div class="app-chart-sine"></div>
+                <div class="app-chip-row">
+                  <span class="m-chip"></span><span class="m-chip"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-details">
+            <div class="project-tech-tags">
+              <span>Flutter</span>
+              <span>Dart</span>
+              <span>Web3.js</span>
+              <span>Biometric Auth</span>
+            </div>
+            <h3 class="project-title">Nova: Web3 & Crypto Mobile Wallet</h3>
+            <p class="project-desc">
+              Secure multi-chain cryptocurrency wallet app for iOS & Android featuring biometric login, instant token swaps, real-time candles, and dark mode.
+            </p>
+            <div class="project-links">
+              <a href="#" class="project-link-btn" title="View Case Study">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <span>App Demo</span>
+              </a>
+              <a href="#" class="project-link-btn ghost" title="GitHub Code">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <span>Source Code</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section container" id="contact">
+      <div class="contact-card reveal">
+        <div class="contact-grid">
+          <!-- Contact Left Info -->
+          <div class="contact-info">
+            <span class="section-tag">Let's Connect</span>
+            <h2 class="contact-title">Have an exciting Web or App project in mind?</h2>
+            <p class="contact-text">
+              I am always open to discussing new opportunities, custom web apps, mobile app MVPs, or full-time roles. Drop a message and let’s make it happen!
+            </p>
+
+            <div class="contact-meta-list">
+              <div class="meta-item">
+                <div class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <div class="meta-label">Email Me</div>
+                  <a href="mailto:HudebiyaBano@gmail.com" class="meta-value">HudebiyaBano@gmail.com</a>
+                </div>
+              </div>
+
+              <div class="meta-item">
+                <div class="meta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <div>
+                  <div class="meta-label">Location</div>
+                  <span class="meta-value">Remote / Worldwide</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-links-row">
+              <a href="https://github.com/Hudebiya" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/in/hudebiya-bano-962750365/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact-form-wrapper">
+            <form id="contact-form" class="modern-form" novalidate>
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required />
+                <span class="field-error" id="name-error">Please enter your name</span>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="john@example.com" required />
+                <span class="field-error" id="email-error">Please enter a valid email address</span>
+              </div>
+
+              <div class="form-group">
+                <label for="project-type">Project Category</label>
+                <select id="project-type" name="projectType">
+                  <option value="web">Full-Stack Web App</option>
+                  <option value="app">Mobile App (iOS/Android)</option>
+                  <option value="both">Both Web & Mobile</option>
+                  <option value="other">Other Inquiry</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Project Overview</label>
+                <textarea id="message" name="message" rows="4" placeholder="Tell me a bit about what you want to build..." required></textarea>
+                <span class="field-error" id="message-error">Please write a brief message</span>
+              </div>
+
+              <button type="submit" class="btn btn-primary submit-btn">
+                <span>Send Message</span>
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer-wrapper">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <a href="#hero" class="brand-logo">
+          <span class="logo-code">&lt;</span>
+          <span class="logo-name">Hudebiya</span>
+          <span class="logo-slash">/</span>
+          <span class="logo-code">&gt;</span>
+        </a>
+        <p class="footer-tagline">Building clean, scalable web & mobile solutions.</p>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">&copy; <span id="year">2026</span> All rights reserved. Crafted with passion.</p>
+        <a href="#hero" class="back-to-top" aria-label="Scroll back to top" title="Scroll to Top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        </a>
       </div>
     </div>
-    <div class="carousel-controls">
-      <button id="prevSlide">&lt; prev</button>
-      <div class="carousel-dots" id="carouselDots"></div>
-      <button id="nextSlide">next &gt;</button>
-    </div>
-  </div>
-</section>
+  </footer>
 
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="cmd-block reveal">
-    <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> cat contact.txt</p>
-    <div class="output">
-      <p>Email : <a href="mailto:you@email.com">you@email.com</a></p>
-      <p>Status: open to work</p>
-    </div>
-  </section>
+  <!-- Toast Notification element -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
 
-  <!-- ===== INTERACTIVE TERMINAL ===== -->
-  <section class="cmd-block reveal">
-    <p class="cmd-line"><span class="prompt">guest@hudebiya:~$</span> help</p>
-    <div class="output" id="terminalOutput"></div>
-    <p class="cmd-line input-line">
-      <span class="prompt">guest@hudebiya:~$</span>
-      <input type="text" id="terminalInput" autocomplete="off" spellcheck="false" placeholder="type 'help' and press enter">
-    </p>
-  </section>
-
-</main>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="app.js"></script>
+  <!-- JavaScript File -->
+  <script src="app.js"></script>
 </body>
 </html>
